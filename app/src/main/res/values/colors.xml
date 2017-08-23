@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorHomeNew">#63CAAF</color>
+    <color name="colorHomeNew1">#30CAAF</color>
+
+
+    <color name="event_color_01_1">#F3F3F3</color>
+    <color name="event_color_01_2">#F3F3F3</color>
+    <color name="event_color_01_3">#F3F3F3</color>
+    <color name="event_color_01_4">#F3F3F3</color>
+    <color name="event_color_01_5">#F3F3F3</color>
+
+
+    <color name="event_color_02_1">#90daa1 </color>
+    <color name="event_color_02_2">#ffa876 </color>
+    <color name="event_color_02_3">#ffa4af</color>
+    <color name="event_color_02_4">#7dc1f9</color>
+    <color name="event_color_02_5">#d9b1f2</color>
+
+
+    <color name="event_color_03_1">#4598e6</color>
+    <color name="event_color_03_2">#69a8e4</color>
+    <color name="event_color_03_3">#6fa4d6</color>
+    <color name="event_color_03_4">#99c7f2</color>
+    <color name="event_color_03_5">#99c7f2</color>
+
+    <color name="frame_btn_main">#FFFFFFFF</color>
+
+    <color name="toolbar">#efefef</color>
+    <color name="toolbar_text">#8f000000</color>
+    <color name="accent">#2789e4</color>
+    <color name="dark">#FF222222</color>
+    <color name="light">#FFEEEEEE</color>
+    <!-- 蓝色-->
+    <color name="colorhomelan">#0099cc</color>
+    <!-- 白色-->
+    <color name="colorbasse">#FFF</color>
+    <!-- 橘红色-->
+    <color name="colorjuhong">#FA6422</color>
+    <!-- 西红柿色 -->
+    <color name="colororangered">#FF4500</color>
+    <!-- 淡灰色颜色,在白底下面使用，如搜索框的颜色-->
+    <color name="colorqianhuise">#F3F3F3</color>
+    <!--线条的颜色 -->
+    <color name="colorline">#666666</color>
+    <color name="colorline1">#cccccc</color>
+
+    <!--线性布局，条目鲜明情况下的背景色，淡灰色 -->
+    <color name="colordanbg">#EEEFF3</color>
+    <color name="colorhome">#22759f</color>
+    <color name="color_red">#d4020d</color>
+    <color name="colorhome_red">#d4020d</color>
+    <color name="colorxiantiao">#d8d8d8</color>
+    <color name="colorHei">#000</color>
+    <color name="colorlv">#20d402</color>
+    <color name="color_listviewitem">#333333</color>
+    <color name="color_code">#aaaaaa</color>
+    <color name="color_item">#f1f1f1</color>
+    <color name="color_bg_banhei">#262523</color>
+    <color name="color_bg_ban_touming">#e0000000</color>
+    <color name="color_bg_main">#f6f6f6</color>
+    <color name="color_bg_text">#999999</color>
+    <color name="color_jszc">#aaaaaa</color>
+    <color name="color_jianjie_text">#d3923c</color>
+    <color name="color_time_bg">#e5e0d7</color>
+    <color name="color_sjz">#ffb0b4</color>
+    <color name="color_lan">#00affe</color>
+    <color name="color_bus_line">#979fac</color>
+    <color name="color_bus_item_bg">#f6f6f6</color>
+    <color name="transparent">#00000000</color>
+    <color name="color_yuandian">#8d8d8d</color>
+    <color name="color_car_text_lan">#3f85fe</color>
+    <color name="color_car_bg">#f5f5f5</color>
+    <color name="color_yello">#fbf800</color>
+    <color name="date_time_dialog">#22759f</color>
+
+    <color name="color_drive_detail_color_view">#e0e2e6</color>
+
+    <color name="color_water">#021019</color>
+    <color name="color_land">#08304B</color>
+    <color name="color_text_sheng">#847F7F</color>
+
+
+    <color name="timeline_light_grey">#e9e9e9</color>
+    <color name="timeline_lighter_grey">#cccccc</color>
+    <color name="timeline_almost_white">#c0c0c0</color>
+
+    <color name="sliding_open">#00500000</color>
+    <color name="sliding_close">#00000000</color>
+
+
+
+    <color name="colorBackground">#F0F1F5</color>
+    <color name="colorWrite">#FFFFFF</color>
+    <color name="colorTranslate">#00FFFFFF</color>
+    <color name="colorRed">#FF0000</color>
+
+    <color name="color_schedule_purple">#9082BD</color>
+    <color name="color_schedule_orange">#f6af80</color>
+    <color name="color_schedule_pink">#E67986</color>
+    <color name="color_schedule_yellow">#F7E373</color>
+    <color name="color_schedule_green">#84C5A3</color>
+    <color name="color_schedule_blue">#679BE4</color>
+    <color name="color_schedule_grey">#B9B9BD</color>
+    <color name="user_iamge_w">#959998</color>
+    <color name="color_schedule_start">#3D81E2</color>
+    <color name="color_schedule_finish">#EC4A5F</color>
+    <color name="color_schedule_title_text">#272E3E</color>
+    <color name="color_schedule_finish_title_text">#7F838F</color>
+    <color name="color_schedule_line">#E3E1EE</color>
+
+    <color name="color_schedule_normal">#9E9DC9</color>
+    <color name="color_schedule_focus">#9082BD</color>
+
+    <color name="color_text_grey">#ADADB9</color>
+
+    <color name="color_menu_title_background">#353655</color>
+    <color name="color_menu_background">#454567</color>
+    <color name="color_menu_border">#2D2D51</color>
+    <color name="color_menu_text_color_normal">#A5A1C2</color>
+    <color name="color_menu_text_color_pre">#73728B</color>
+    <color name="color_menu_line">#303054</color>
+
+    <color name="color_circle_border">#706F7D</color>
+    <color name="color_add_event_set_border">#EEEEEE</color>
+    <color name="color_add_event_set_content">#F4F4F4</color>
+    <color name="color_add_event_text">#282D40</color>
+
+    <color name="color_cancel_normal">#B6B6B6</color>
+    <color name="color_cancel_pre">#9FB6B6B6</color>
+    <color name="color_confirm_normal">#8F81BC</color>
+    <color name="color_confirm_pre">#9F8F81BC</color>
+
+    <color name="color_show_finish_normal">#9E9DC9</color>
+    <color name="color_show_finish_pre">#B2B1D3</color>
+    <color name="color_finish_hint_text">#8D8BA0</color>
+
+    <color name="color_select_date_dialog_line">#B8B5D4</color>
+    <color name="color_select_date_dialog_edit_text_bg_normal">#C6C0DC</color>
+    <color name="color_select_date_dialog_edit_text_bg_focus">#A68BFF</color>
+    <color name="color_small_calendar_text">#7452E4</color>
+    <color name="color_dialog_shadow">#65000000</color>
+
+    <color name="color_schedule_text">#282D40</color>
+    <color name="color_schedule_text_pre">#ABABAD</color>
+    <color name="color_input_location_bg">#F4F4F4</color>
+    <color name="color_input_location_text_hint">#AAA8B3</color>
+    <color name="color_input_location_text">#272E3E</color>
+    <color name="week_bu_preek">#58B098</color>
+    <color name="edit_color">#FFF3F7F6</color>
+    <color name="edit_color1">#c6dcc0</color>
+</resources>

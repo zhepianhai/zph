@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Grid -->
+    <dimen name="frame_grid_size">72.0px</dimen>
+    <dimen name="frame_grid_textsize">18.0px</dimen>
+    <dimen name="frame_grid_textsizes">12.0px</dimen>
+
+    <!-- ViewMenu -->
+    <dimen name="frame_viewmenu_w_show">240.0px</dimen>
+    <dimen name="frame_viewmenu_h_btn">36.0px</dimen>
+    <dimen name="frame_viewmenu_h_row">30.0px</dimen>
+    <dimen name="frame_viewmenu_textsize">14.0px</dimen>
+
+    <!-- Chart -->
+    <dimen name="frame_chart_padding_left">30px</dimen>
+    <dimen name="frame_chart_padding_right">30px</dimen>
+    <dimen name="frame_chart_padding_top">38px</dimen>
+    <dimen name="frame_chart_padding_bottom">30px</dimen>
+    <dimen name="frame_chart_textsize_axis">13px</dimen>
+    <dimen name="frame_chart_textsize_scale">13px</dimen>
+
+    <!-- Main -->
+    <dimen name="frame_h_lisview_item_textsize">14sp</dimen>
+    <dimen name="frame_h_lisview_item_height">48dip</dimen>
+    
+    <dimen name="frame_h_nav">50.0dip</dimen>
+    <dimen name="frame_h_tool">54.0dip</dimen>
+    <dimen name="frame_h_menu">60.0dip</dimen>
+    <dimen name="frame_h_home_viewpager">100.0dip</dimen>
+    <dimen name="frame_h_title_date">36.0dip</dimen>
+    <dimen name="frame_h_title_dateintv">48.0dip</dimen>
+    <dimen name="frame_h_title">36.0dip</dimen>
+    <dimen name="frame_h_title_sub">36.0dip</dimen>
+    <dimen name="frame_h_intro">30.0dip</dimen>
+    <dimen name="frame_nav_padding_txt">60.0dip</dimen>
+    <dimen name="frame_main_padding">5.0dip</dimen>
+    <dimen name="frame_textsize_nav_txt">21.0sp</dimen>
+    <dimen name="frame_textsize_nav_btn">15.0sp</dimen>
+    <dimen name="frame_textsize_menu">21.0sp</dimen>
+    <dimen name="frame_textsize_title_date">15.0sp</dimen>
+    <dimen name="frame_textsize_title_dateintv">15.0sp</dimen>
+    <dimen name="frame_textsize_title">21.0sp</dimen>
+    <dimen name="frame_textsize_title_sub">16.0dip</dimen>
+    <dimen name="frame_textsize_intro">16.0sp</dimen>
+    <dimen name="frame_textsize_intro_slide">14.0sp</dimen>
+
+    <!-- List -->
+    <dimen name="frame_list_h_single">50.0dip</dimen>
+    <dimen name="frame_list_size_singleimg">40.0dip</dimen>
+    <dimen name="frame_list_h_head">38.0dip</dimen>
+    <dimen name="frame_list_h_data">38.0dip</dimen>
+    <dimen name="frame_list_h_data_minheight">38.0dip</dimen>
+    <dimen name="frame_list_h_head_double">48.0dip</dimen>
+    <dimen name="frame_list_h_data_double">48.0dip</dimen>
+    <dimen name="frame_list_h_data_minheight_double">48.0dip</dimen>
+    <dimen name="frame_list_h_head_tri">72.0dip</dimen>
+    <dimen name="frame_list_div">1.0dip</dimen>
+    <dimen name="frame_list_margin">2.0dip</dimen>
+    <dimen name="frame_list_cont_single_marginleft">5.0dip</dimen>
+    <dimen name="frame_list_cont_single_marginright">10.0dip</dimen>
+    <dimen name="frame_list_textsize_single">20.0dip</dimen>
+    <dimen name="frame_list_textsize_head">16.0sp</dimen>
+    <dimen name="frame_list_textsize_data">16.0sp</dimen>
+    <dimen name="frame_bottom_tab_textsize">14.0sp</dimen>
+    <dimen name="frame_list_expand_arrow">12.0dip</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+</resources>
