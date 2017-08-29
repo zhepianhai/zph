@@ -46,7 +46,7 @@ public class ZPHArcGisMapView  extends LinearLayout {
 
     }
 
-    public void setMapOptions(double t,double g,int l){
+    public void setZPHMapOptions(double t,double g,int l){
         o=new  MapOptions(MapOptions.MapType.STREETS,t,g,l);
         if(null==f){
             return;
