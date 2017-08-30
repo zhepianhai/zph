@@ -1,5 +1,7 @@
 package com.zph.base;
 
+import android.app.Activity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,24 +26,26 @@ public class ActRoot extends AppCompatActivity {
     public static final int NAVBTNRIGHT_TYPE_MSGFILE = 6;
     public static final int NAVBTNRIGHT_TYPE_MEDIAUP = 7;
 
-    @BindView(R.id.nav_btn_left)
-    protected Button mNavBtnLeft;
-    @BindView(R.id.nav_btn_right)
-    protected Button mNavBtnRight;
-    @BindView(R.id.nav_txt_title)
-    protected TextView mNavTxtTitle;
-    @BindView(R.id.nav_lay_title)
-    protected LinearLayout mNavLayTitle;
     @BindView(R.id.root_lay_show)
     protected LinearLayout mViewMain;
-    @BindView(R.id.root_lay_nav)
-    protected RelativeLayout mNavLay;
+    private ActionBar mActionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_act_root);
         ButterKnife.bind(this);
-        this.initNav();
+
+        initActionBar();
+
+    }
+
+    private void initActionBar() {
+        mActionBar=getSupportActionBar();
+        assert mActionBar != null;
+        mActionBar.setDisplayShowHomeEnabled(true);
+        mActionBar.setIcon(R.drawable.icoon_menu);
+        mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
     }
 
     @Override
@@ -54,29 +58,5 @@ public class ActRoot extends AppCompatActivity {
         super.onPause();
     }
 
-    private void initNav() {
-        mNavLayTitle.setVisibility(View.GONE);
-    }
-    public void setNavTitle(String title) {
-        mNavTxtTitle.setText(title);
-    }
-
-    public void setNavBtnRightType(int type) {
-        mNavBtnRight.setText("");
-        if (type == NAVBTNRIGHT_TYPE_NROMAL) {
-//            mNavBtnRight.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.frame_nav_btn_data_bg));
-        }
-
-    }
-
-    @OnClick(R.id.nav_btn_left)
-    public void OnLeftClickListener(View view){
-        this.finish();
-    }
-
-    @OnClick(R.id.nav_btn_right)
-    public void OnRightClickListener(View view){
-
-    }
 
 }

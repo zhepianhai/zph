@@ -1,70 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:showAsAction="always"
     tools:context="com.zph.base.ActRoot">
-    <RelativeLayout
-        android:id="@+id/root_lay_nav"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/frame_h_nav"
-        android:background="@color/colorhomelan"
-        android:gravity="center_vertical" >
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-
-        <TextView
-            android:id="@+id/nav_txt_title"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:paddingLeft="@dimen/frame_nav_padding_txt"
-            android:paddingRight="@dimen/frame_nav_padding_txt"
-            android:singleLine="true"
-            android:textColor="#FFFFFF"
-            android:textSize="@dimen/frame_textsize_nav_txt" />
-
-        <LinearLayout
-            android:id="@+id/nav_lay_title"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal" />
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/nav_btn_left"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:minWidth="@dimen/frame_h_nav"
-        android:singleLine="true"
-        android:textColor="@color/frame_btn_main"
-        android:textSize="@dimen/frame_textsize_nav_btn" />
-
-    <Button
-        android:id="@+id/nav_btn_right"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:gravity="center"
-        android:minWidth="@dimen/frame_h_nav"
-        android:singleLine="true"
-        android:textColor="@color/frame_btn_main"
-        android:textSize="@dimen/frame_textsize_nav_btn" />
-
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/root_lay_show"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/root_lay_nav"
         android:orientation="vertical" />
-</RelativeLayout>
+</LinearLayout>

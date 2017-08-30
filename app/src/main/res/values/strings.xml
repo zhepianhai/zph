@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">zph</string>
+
+    <string name="act_home_bar">找找看</string>
 </resources>

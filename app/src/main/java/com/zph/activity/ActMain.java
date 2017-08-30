@@ -1,37 +1,41 @@
 package com.zph.activity;
 
 import android.Manifest;
-import android.content.Context;
+import android.app.ActionBar;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
+import android.widget.Toolbar;
 
 
 import com.esri.android.map.LocationDisplayManager;
-import com.esri.android.map.event.OnStatusChangedListener;
-import com.zph.R;
-import com.zph.base.ActRoot;
+import com.esri.android.map.MapOptions;
 import com.zph.base.ActRootMap;
 import com.zph.baselib.map.ZPHArcGisMapView;
+import com.zph.baselib.utils.ZPHUtilsMaterialDesign;
 
 public class ActMain extends ActRootMap  {
     private LocationDisplayManager locationDisplayManager;
+    private MapOptions o;
+
     private static final int BAIDU_READ_PHONE_STATE =100;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initmmActionBar();
+
         //判断是否为android6.0系统版本，如果是，需要动态添加权限
         if (Build.VERSION.SDK_INT>=23){
             showContacts();
@@ -39,6 +43,11 @@ public class ActMain extends ActRootMap  {
             initVar();//init为定位方法
         }
     }
+
+    private void initmmActionBar() {
+
+    }
+
     public void showContacts(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -56,7 +65,6 @@ public class ActMain extends ActRootMap  {
     private void initVar() {
 //        this.setNavBtnRightType(ActRoot.NAVBTNRIGHT_TYPE_HOME);
         mMapView=new ZPHArcGisMapView(this);
-        mNavLay.setVisibility(View.VISIBLE);
         mViewMain.addView(mMapView,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         locationDisplayManager=  mMapView.getMapView().getLocationDisplayManager();//获取定位类
         locationDisplayManager.setShowLocation(true);
@@ -64,15 +72,8 @@ public class ActMain extends ActRootMap  {
         locationDisplayManager.setShowPings(true);
         locationDisplayManager.start();//开始定位
         locationDisplayManager.setLocationListener(new listener());
-
     }
 
-//    @Override
-//    public void onStatusChanged(Object o, STATUS status) {
-//        Log.i("TAG","o"+o.toString());
-//        Log.i("TAG","status"+status.getError().toString());
-//        Log.i("TAG","status"+status.getValue());
-//    }
 
 
     @Override
@@ -102,6 +103,9 @@ public class ActMain extends ActRootMap  {
             Log.i("TAG","onLocationChanged:"+location.toString());
             double lat=location.getLatitude();
             double log=location.getLongitude();
+            o=new MapOptions(MapOptions.MapType.STREETS,lat,log,13);
+            mMapView.getMapView().setMapOptions(o);
+            locationDisplayManager.stop();
         }
 
         @Override
@@ -118,5 +122,22 @@ public class ActMain extends ActRootMap  {
         public void onProviderDisabled(String s) {
             Log.i("TAG","onProviderDisabled:"+s);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Snackbar snackbar=Snackbar.make(mViewMain, "SnackbarClicked", Snackbar.LENGTH_SHORT);
+        ZPHUtilsMaterialDesign.setSnackbarColor(snackbar, Color.BLACK,Color.WHITE);
+        snackbar.show();
+//        Snackbar.
+//        super.onBackPressed();
+//        Snackbar.make(mViewMain, "SnackbarClicked", Snackbar.LENGTH_SHORT).show();
+//        Snackbar.make(mViewMain, "SnackbarClicked", Snackbar.LENGTH_SHORT).setAction("Action", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(ActMain.this, "I'm a Toast", Toast.LENGTH_SHORT).show();
+//            }
+//        }).setActionTextColor(Color.RED).show();
+
     }
 }
