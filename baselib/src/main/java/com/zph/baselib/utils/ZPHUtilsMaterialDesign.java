@@ -17,6 +17,13 @@ import com.zph.baselib.R;
 
 public class ZPHUtilsMaterialDesign {
 
+    public static void showToastBySnackbar(View rootView,String message,int type){
+        Snackbar.make(rootView,message=message==null?"":message, Snackbar.LENGTH_SHORT).show();
+    }
+
+
+
+
     /**
      * 改变 Sncakbar的背景色和字体颜色
      */
