@@ -2,4 +2,6 @@
     <string name="app_name">zph</string>
 
     <string name="act_home_bar">找找看</string>
+    <string name="search_hind">搜索</string>
+    <string name="road">路线</string>
 </resources>

@@ -38,6 +38,7 @@ public class ZPHArcGisMapView  extends LinearLayout {
     public ZPHArcGisMapView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.a(context);
+
     }
 
     private void a(Context context) {

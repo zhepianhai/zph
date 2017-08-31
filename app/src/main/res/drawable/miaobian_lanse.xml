@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 借助此属性绘制图形的背景色 -->
-    <solid android:color="#ffffffff" />
+    <solid android:color="@color/colorhomelan" />
     <!-- 描边 -->
-    <corners android:radius="10dp"
+    <corners android:radius="15dp"
 
         />
 
