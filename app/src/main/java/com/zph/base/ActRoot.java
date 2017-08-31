@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActRoot extends AppCompatActivity {
-    public static final int NAVBTNRIGHT_TYPE_NROMAL = 0;
+    public static final int NAVBTNRIGHT_TYPE_NOTITLE = 0;
     public static final int NAVBTNRIGHT_TYPE_HOME = 1;
     public static final int NAVBTNRIGHT_TYPE_TIME = 2;
     public static final int NAVBTNRIGHT_TYPE_DATA = 3;
@@ -46,6 +46,19 @@ public class ActRoot extends AppCompatActivity {
         mActionBar.setDisplayShowHomeEnabled(true);
         mActionBar.setIcon(R.drawable.icoon_menu);
         mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+    }
+
+    public void setmActionBarType(int mActionBarType){
+        if(mActionBarType==NAVBTNRIGHT_TYPE_NOTITLE){
+            mActionBar.setDisplayShowTitleEnabled(false);
+            mActionBar.setDisplayShowHomeEnabled(false);
+            mActionBar.hide();
+        }
+        else{
+            mActionBar.setDisplayShowTitleEnabled(true);
+            mActionBar.setDisplayShowHomeEnabled(true);
+            mActionBar.show();
+        }
     }
 
     @Override

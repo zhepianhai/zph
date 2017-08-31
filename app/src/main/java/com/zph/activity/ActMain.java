@@ -28,13 +28,12 @@ import com.zph.baselib.utils.ZPHUtilsMaterialDesign;
 public class ActMain extends ActRootMap  {
     private LocationDisplayManager locationDisplayManager;
     private MapOptions o;
-
+    private ActionBar mActionBar;
     private static final int BAIDU_READ_PHONE_STATE =100;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initmmActionBar();
 
         //判断是否为android6.0系统版本，如果是，需要动态添加权限
         if (Build.VERSION.SDK_INT>=23){
@@ -42,10 +41,12 @@ public class ActMain extends ActRootMap  {
         }else{
             initVar();//init为定位方法
         }
+        initMyActionBar();
+
     }
 
-    private void initmmActionBar() {
-
+    private void initMyActionBar() {
+        setmActionBarType(NAVBTNRIGHT_TYPE_NOTITLE);
     }
 
     public void showContacts(){

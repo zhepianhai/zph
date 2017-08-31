@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#000"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/root_searchView_layout"
+        android:clickable="true"
+        android:elevation="8dp"
+        android:background="@drawable/miaobian_baise"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="48dp"
+        tools:targetApi="lollipop">
+
+
+    </RelativeLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:clickable="true"
+        android:elevation="8dp"
+        android:id="@+id/root_floatingActionButton"
+        android:layout_width="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_height="36dp"
+        android:layout_margin="10dp" />
+</RelativeLayout>
