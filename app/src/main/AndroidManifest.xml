@@ -25,7 +25,7 @@
         <activity
             android:logo="@drawable/icoon_menu"
             android:label="@string/act_home_bar"
-            android:name=".activity.ActMain">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".base.ActRoot" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".activity.ActMain"/>
     </application>
 
 </manifest>

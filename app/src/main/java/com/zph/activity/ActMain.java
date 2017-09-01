@@ -21,6 +21,7 @@ import android.widget.Toolbar;
 
 import com.esri.android.map.LocationDisplayManager;
 import com.esri.android.map.MapOptions;
+import com.zph.R;
 import com.zph.base.ActRootMap;
 import com.zph.baselib.map.ZPHArcGisMapView;
 import com.zph.baselib.utils.ZPHUtilsMaterialDesign;
@@ -56,7 +57,7 @@ public class ActMain extends ActRootMap  {
                 != PackageManager.PERMISSION_GRANTED
                 || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getApplicationContext(),"没有权限,请手动开启定位权限",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.promiss_location_error,Toast.LENGTH_SHORT).show();
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
             ActivityCompat.requestPermissions(ActMain.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, BAIDU_READ_PHONE_STATE);
         }else{
@@ -88,7 +89,7 @@ public class ActMain extends ActRootMap  {
                     initVar();
                 } else {
                     // 没有获取到权限，做特殊处理
-                    Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.location_error_open, Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:

@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.zph.MainActivity">
+    <com.zph.baselib.view.ZPHMapTileView
+        android:id="@+id/slidingDrawer"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:content="@+id/slidingDrawer_content"
+        android:handle="@+id/slidingDrawer_title"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/slidingDrawer_title"
+            android:layout_width="match_parent"
+            android:background="@color/colorbasse"
+            android:layout_height="@dimen/dp_48">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:src="@mipmap/icoon_yuyin"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/slidingDrawer_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/onmap_thing_view"/>
+        </RelativeLayout>
+
+    </com.zph.baselib.view.ZPHMapTileView>
 
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

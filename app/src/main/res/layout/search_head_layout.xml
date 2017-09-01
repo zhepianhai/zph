@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/root_searchView_layout"
 
+        android:elevation="@dimen/dp_8"
+        android:background="@drawable/miaobian_baise"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dp_10"
+        android:layout_height="@dimen/dp_42"
+        tools:targetApi="lollipop">
+        <ImageView
+            android:id="@+id/search_view_logo"
+            android:layout_width="@dimen/dp_24"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_centerVertical="true"
+
+            android:background="@mipmap/icoon_search"
+            android:layout_height="@dimen/dp_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/search_hind"
+            android:textColor="@color/color_text_sheng"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@+id/search_view_logo"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/dp_24"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@mipmap/icoon_yuyin"
+            android:layout_height="@dimen/dp_24" />
+
+
+    </RelativeLayout>
 </LinearLayout>

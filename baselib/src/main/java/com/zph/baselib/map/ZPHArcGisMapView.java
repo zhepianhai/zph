@@ -49,8 +49,8 @@ public class ZPHArcGisMapView  extends LinearLayout {
                 setLayoutParams(new LayoutParams(-1, -1));
         this.addView(var2);
         this.f = var2.findViewById(this.a.getResources().getIdentifier("mapview", "id", this.a.getPackageName()));
-        this.searcL=var2.findViewById(this.a.getResources().getIdentifier("root_searchView_layout","id",this.a.getPackageName()));
-        this.fBtn=var2.findViewById(this.a.getResources().getIdentifier("root_floatingActionButton","id",this.a.getPackageName()));
+//        this.searcL=var2.findViewById(this.a.getResources().getIdentifier("root_searchView_layout","id",this.a.getPackageName()));
+//        this.fBtn=var2.findViewById(this.a.getResources().getIdentifier("root_floatingActionButton","id",this.a.getPackageName()));
         this.setShadow();
 
     }
