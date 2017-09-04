@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.zph.MainActivity">
-    <com.zph.baselib.view.ZPHMapTileView
+    <com.zph.view.ZPHMapTileView
         android:id="@+id/slidingDrawer"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             <include layout="@layout/onmap_thing_view"/>
         </RelativeLayout>
 
-    </com.zph.baselib.view.ZPHMapTileView>
+    </com.zph.view.ZPHMapTileView>
 
 
 

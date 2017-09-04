@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zph.view.ZPHMapTileView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/zph_linerlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/search_head_layout" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zph_linerlayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:clickable="true"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/miaobian_lanse"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignBottom="@+id/root_floatingActionButton"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:layout_width="@dimen/dp_24"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp_10"
+                android:background="@mipmap/icoon_lubiao"
+                android:layout_height="@dimen/dp_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="@string/road"
+                android:textSize="16sp"
+                android:textColor="@color/colorbasse"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zph_linerlayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.FloatingActionButton
+            android:clickable="true"
+            android:layout_alignParentBottom="true"
+            android:elevation="@dimen/dp_8"
+            android:id="@+id/root_floatingActionButton"
+            android:layout_width="@dimen/dp_36"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_height="@dimen/dp_36"
+            android:layout_margin="@dimen/dp_10" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zph_linerlayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+
+</com.zph.view.ZPHMapTileView>

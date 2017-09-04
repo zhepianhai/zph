@@ -1,23 +1,14 @@
 package com.zph;
 
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.DragEvent;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.RelativeLayout;
-import android.widget.SlidingDrawer;
+import android.widget.LinearLayout;
 
 import com.esri.android.map.MapOptions;
 import com.esri.android.map.MapView;
-import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.zph.base.ActRootMap;
-import com.zph.baselib.view.ZPHMapTileView;
+import com.zph.view.ZPHMapTileView;
 
-public class MainActivity extends ActRootMap implements SlidingDrawer.OnDrawerOpenListener, SlidingDrawer.OnDrawerCloseListener {
+public class MainActivity extends ActRootMap {
     MapView mapView;
     MapOptions opt= new  MapOptions(MapOptions.MapType.STREETS,33.666354, -117.903557,13);
     ZPHMapTileView slidingDrawer;
@@ -26,9 +17,15 @@ public class MainActivity extends ActRootMap implements SlidingDrawer.OnDrawerOp
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.zph_map_title_view);
         setmActionBarType(NAVBTNRIGHT_TYPE_NOTITLE);
         iniview();
+        ZPHMapTileView layShow = (ZPHMapTileView) LinearLayout.inflate(this, R.layout.zph_map_title_view, null);
+        mViewMain.addView(layShow, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+
+//        ZPHMapTileView zphMapTileView=new ZPHMapTileView(this);
+
+//        mViewMain.addView(zphMapTileView);
 
 //        setContentView(R.layout.zph_arcgis_map);
 //        mapView = new MapView(this,opt);
@@ -37,28 +34,10 @@ public class MainActivity extends ActRootMap implements SlidingDrawer.OnDrawerOp
     }
 
     private void iniview() {
-        slidingDrawer= (ZPHMapTileView) findViewById(R.id.slidingDrawer);
-        slidingDrawer.setOnDrawerOpenListener(this);
-        slidingDrawer.setOnDrawerCloseListener(this);
 
     }
 
 
-    @Override
-    public void onDrawerOpened() {
-        if(slidingDrawer.isOpened()){
-            View view=slidingDrawer.getHandle();
-//            view.setBackgroundColor(Color.RED);
-            view.setVisibility(View.GONE);
-        }
-
-    }
-
-    @Override
-    public void onDrawerClosed() {
-        View view=slidingDrawer.getHandle();
-        view.setBackgroundColor(Color.WHITE);
-    }
 
 
 }
