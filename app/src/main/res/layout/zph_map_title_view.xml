@@ -7,15 +7,18 @@
         android:id="@+id/zph_linerlayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include layout="@layout/search_head_layout" />
+        <View android:layout_width="match_parent"
+            android:background="@color/colorhomelan"
+            android:layout_height="@dimen/dp_40"/>
     </LinearLayout>
 
     <LinearLayout
+
         android:id="@+id/zph_linerlayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:clickable="true"
+
             android:layout_gravity="center"
             android:orientation="horizontal"
             android:background="@drawable/miaobian_lanse"
@@ -40,6 +43,7 @@
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_height="match_parent" />
         </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -47,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <android.support.design.widget.FloatingActionButton
-            android:clickable="true"
+
             android:layout_alignParentBottom="true"
             android:elevation="@dimen/dp_8"
             android:id="@+id/root_floatingActionButton"

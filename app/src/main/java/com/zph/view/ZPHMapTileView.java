@@ -1,5 +1,6 @@
 package com.zph.view;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,6 +12,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.OverScroller;
 import android.widget.Toast;
@@ -31,8 +35,9 @@ import java.util.List;
  * @deprecated
  */
 
-public class ZPHMapTileView extends ViewGroup implements GestureDetector.OnGestureListener, View.OnTouchListener {
+public class ZPHMapTileView extends ViewGroup {
     private final String TAG = "ZPHMapTileView";
+
 
 
     private enum Direction {
@@ -52,7 +57,9 @@ public class ZPHMapTileView extends ViewGroup implements GestureDetector.OnGestu
     private int mViewRootHeight;
     private int mViewRootWidth;
 
-
+    private float mStartX = 0;
+    private float mStartY = 0;
+    private float mDis=0;
     public ZPHMapTileView(Context context) {
         this(context, null);
     }
@@ -70,41 +77,48 @@ public class ZPHMapTileView extends ViewGroup implements GestureDetector.OnGestu
 
     private void init() {
 //        this.setBackgroundColor(Color.WHITE);
+        mGestureDetector = new GestureDetectorCompat(mContext, mGestureListener);
         mLayoutList=new ArrayList<>();
         mViewRootHeight=getHeight();
         mViewRootWidth=getWidth();
     }
+    private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
-    @Override
-    public boolean onDown(MotionEvent motionEvent) {
-        return false;
-    }
+        @Override
+        public boolean onDown(MotionEvent motionEvent) {
+            Log.i("TAG", "onDown");
+            return false;
+        }
 
-    @Override
-    public void onShowPress(MotionEvent motionEvent) {
+        @Override
+        public void onShowPress(MotionEvent motionEvent) {
+            Log.i("TAG", "onShowPress");
+        }
 
-    }
+        @Override
+        public boolean onSingleTapUp(MotionEvent motionEvent) {
+            Log.i("TAG", "onSingleTapUp");
+            return false;
+        }
 
-    @Override
-    public boolean onSingleTapUp(MotionEvent motionEvent) {
-        return false;
-    }
+        @Override
+        public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+            Log.i("TAG", "onScroll");
 
-    @Override
-    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        return false;
-    }
+            return false;
+        }
 
-    @Override
-    public void onLongPress(MotionEvent motionEvent) {
+        @Override
+        public void onLongPress(MotionEvent motionEvent) {
+            Log.i("TAG", "onLongPress");
+        }
 
-    }
-
-    @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        return false;
-    }
-
+        @Override
+        public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+            Log.i("TAG", "onFling");
+            return false;
+        }
+    };
     @Override
     protected void onLayout(boolean b, int left, int top, int right, int buttom) {
         int cCount = getChildCount();
@@ -124,16 +138,16 @@ public class ZPHMapTileView extends ViewGroup implements GestureDetector.OnGestu
             switch (i) {
                 case 0:
                     cl = 0;
-                    ct = 0;
+                    ct = getHeight()-cHeight;
                     break;
                 case 1:
                     cl = (getWidth() - cWidth) / 2;
-                    ct = getHeight() - cHeight - 10;
+                    ct = getHeight() - cHeight - 100;
 
                     break;
                 case 2:
                     cl = getWidth() - cWidth - 10;
-                    ct = getHeight() - cHeight - 10;
+                    ct = getHeight() - cHeight - 100;
                     break;
                 case 3:
                     cl = getWidth();
@@ -163,8 +177,6 @@ public class ZPHMapTileView extends ViewGroup implements GestureDetector.OnGestu
         mLayoutList.add(1,mLinearLayout2);
         mLayoutList.add(2,mLinearLayout3);
         mLayoutList.add(3,mLinearLayout4);
-        mLinearLayout2.setOnTouchListener(this);
-
     }
 
     @Override
@@ -215,38 +227,113 @@ public class ZPHMapTileView extends ViewGroup implements GestureDetector.OnGestu
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
+    public boolean onTouchEvent(MotionEvent ev) {
+//        Log.i("TAG","AAAA");
+//        boolean val = mGestureDetector.onTouchEvent(ev);
+//        Log.i("TAG","AAAA="+val);
+//        return val;
 
-        return false;
-    }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN||ev.getAction()== MotionEvent.ACTION_MOVE) {
-            if (checkIsRoadView(ev)) {
-                mCurrentScrollDirection =Direction.UP;
-                MovieRoadView(ev);
+
+
+        if (checkIsRoadView(ev)) {
+            switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+
+                    mStartX=mLinearLayout1.getX();
+                    mStartY=mLinearLayout1.getY();
+                    mDis=ev.getY()-mStartY;
+                    Log.i("TAG","Down");
+               return true;
+                case MotionEvent.ACTION_MOVE:
+
+                    mCurrentScrollDirection =Direction.UP;
+                    MovieRoadView(ev);
+                 break;
+                case MotionEvent.ACTION_UP:
+                    Log.i("TAG","Up");
+                    mDis=0;
+                    if(ev.getY()<=mViewRootHeight/2){
+
+                    }
+                    else{
+                        recoverView(ev);
+
+                    }
+
+                 break;
             }
+        }
+        else{
             mCurrentScrollDirection=Direction.NONE;
         }
-        return onTouchEvent(ev);
+
+
+        return super.onTouchEvent(ev);
     }
+
+    private void recoverView(MotionEvent ev) {
+        recoverLayout1(ev);
+        recoverLayout2(ev);
+
+    }
+
+    private void recoverLayout1(MotionEvent ev) {
+        int cl = 0, ct = 0, cr = 0, cb = 0;
+        cl = 0;
+        ct = getHeight() - mLinearLayout1.getMeasuredHeight();
+        cr = cl + mLinearLayout1.getMeasuredWidth();
+        cb = ct+mLinearLayout1.getMeasuredHeight();
+        int locationY=(int)(mDis-ev.getY());
+        int distance=(int)(ct-ev.getY());
+        Log.i("TAG","Dis"+distance);
+        TranslateAnimation animation = new TranslateAnimation(Animation.ABSOLUTE,0,
+                Animation.ABSOLUTE,0,
+                Animation.ABSOLUTE,locationY,
+                Animation.ABSOLUTE,locationY+100);
+        animation.setDuration(1200);
+        animation.setInterpolator(new OvershootInterpolator());
+        mLinearLayout1.setAnimation(animation);
+        animation.start();
+        mLinearLayout1.layout(cl, ct, cr, cb);
+    }
+
+    private void recoverLayout2(MotionEvent ev) {
+        int cl = 0, ct = 0, cr = 0, cb = 0;
+        cl = (getWidth() - mLinearLayout2.getMeasuredWidth()) / 2;
+        ct = getHeight() - mLinearLayout2.getMeasuredHeight() - 100;
+        cr = cl + mLinearLayout2.getMeasuredWidth();
+        cb = ct+mLinearLayout2.getMeasuredHeight();
+
+
+        TranslateAnimation animation = new TranslateAnimation(0,0,0,ct);
+        animation.setDuration(1200);
+        animation.setInterpolator(new OvershootInterpolator());
+        mLinearLayout2.setAnimation(animation);
+        animation.start();
+        mLinearLayout2.layout(cl, ct, cr, cb);
+    }
+
 
     private void MovieRoadView(MotionEvent ev) {
         if(checkIsLinearLayoutIsNull()){
             initLinearLayoutView();
         }
-        int eventX = (int) ev.getX();
-        int eventY = (int) ev.getY();
 //        int getHeight() - mLinearLayout2.getHeight() - 10;
         // left top right bottom
         // left 不变，right不变
         int left,top,right,bottom;
-        left=(getWidth() - mLinearLayout2.getMeasuredWidth()) / 2;
-        right=left+mLinearLayout2.getMeasuredWidth();
-        bottom=mViewRootHeight-mLinearLayout2.getMeasuredHeight()-10;
-        top=bottom-mLinearLayout2.getMeasuredHeight();
-        mLinearLayout2.layout(left,eventY-mLinearLayout2.getMeasuredHeight(), right,eventY);
+        int left2,top2,right2,bottom2;
+        left=0;
+        left2=(getWidth() - mLinearLayout2.getMeasuredWidth()) / 2;
+        right=left+mLinearLayout1.getMeasuredWidth();
+        right2=left2+mLinearLayout2.getMeasuredWidth();
+        top=(int)ev.getY()-(int)mDis;
+        top2=top-100;
+        bottom=top+mLinearLayout1.getMeasuredHeight();
+        bottom2=bottom-100;
+        mLinearLayout1.layout(left,top, right,bottom);
+        mLinearLayout2.layout(left2,top2, right2,bottom2);
 
     }
 
@@ -258,15 +345,16 @@ public class ZPHMapTileView extends ViewGroup implements GestureDetector.OnGestu
     }
 
     public boolean checkIsRoadView(MotionEvent ev) {
-        if (null == mLinearLayout2) {
+        if (null == mLinearLayout1 ||null==mLinearLayout2) {
+            mLinearLayout1 = (LinearLayout) getChildAt(0);
             mLinearLayout2 = (LinearLayout) getChildAt(1);
         }
         float x, y, ex, ey;
-        x = mLinearLayout2.getX();
-        y = mLinearLayout2.getY();
+        x = mLinearLayout1.getX();
+        y = mLinearLayout1.getY();
         ex = ev.getX();
         ey = ev.getY();
-        if (ex > x && ex - x < mLinearLayout2.getMeasuredWidth() && ey > y && ey - y < mLinearLayout2.getMeasuredHeight()) {
+        if (ex > x && ex - x < mLinearLayout1.getMeasuredWidth() && ey > y && ey - y < mLinearLayout1.getMeasuredHeight()) {
             return true;
         }
         return false;
