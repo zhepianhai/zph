@@ -62,14 +62,16 @@
             android:layout_margin="@dimen/dp_10" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/zph_linerlayout4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:background="@color/colorhome"
+        android:layout_height="match_parent">
+       <ProgressBar
+           android:layout_centerInParent="true"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+    </RelativeLayout>
 
 
 

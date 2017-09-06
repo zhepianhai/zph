@@ -17,6 +17,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.OverScroller;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.zph.R;
@@ -39,7 +40,6 @@ public class ZPHMapTileView extends ViewGroup {
     private final String TAG = "ZPHMapTileView";
 
 
-
     private enum Direction {
         NONE, UP, DOWN, VERTICAL, ERR
     }
@@ -50,7 +50,8 @@ public class ZPHMapTileView extends ViewGroup {
     private Direction mCurrentScrollDirection = Direction.NONE;
 
     private Context mContext;
-    private LinearLayout mLinearLayout1, mLinearLayout2, mLinearLayout3, mLinearLayout4;
+    private LinearLayout mLinearLayout1, mLinearLayout2, mLinearLayout3;
+    private RelativeLayout mLinearLayout4;
     private List<LinearLayout> mLayoutList;
 
     private boolean mIsInTop;
@@ -59,7 +60,8 @@ public class ZPHMapTileView extends ViewGroup {
 
     private float mStartX = 0;
     private float mStartY = 0;
-    private float mDis=0;
+    private float mDis = 0;
+
     public ZPHMapTileView(Context context) {
         this(context, null);
     }
@@ -78,34 +80,43 @@ public class ZPHMapTileView extends ViewGroup {
     private void init() {
 //        this.setBackgroundColor(Color.WHITE);
         mGestureDetector = new GestureDetectorCompat(mContext, mGestureListener);
-        mLayoutList=new ArrayList<>();
-        mViewRootHeight=getHeight();
-        mViewRootWidth=getWidth();
+        mLayoutList = new ArrayList<>();
+        mViewRootHeight = getHeight();
+        mViewRootWidth = getWidth();
     }
+
     private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
         @Override
         public boolean onDown(MotionEvent motionEvent) {
-            Log.i("TAG", "onDown");
-            return false;
+            if (checkIsRoadView(motionEvent) || mCurrentScrollDirection == Direction.UP) {
+                mCurrentScrollDirection = Direction.UP;
+                mStartX = mLinearLayout1.getX();
+                mStartY = mLinearLayout1.getY();
+                mDis = motionEvent.getY() - mStartY;
+            } else
+                mCurrentScrollDirection = Direction.NONE;
+            return true;
         }
 
         @Override
         public void onShowPress(MotionEvent motionEvent) {
-            Log.i("TAG", "onShowPress");
         }
 
         @Override
         public boolean onSingleTapUp(MotionEvent motionEvent) {
-            Log.i("TAG", "onSingleTapUp");
+            mCurrentScrollDirection = Direction.NONE;
             return false;
         }
 
         @Override
-        public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-            Log.i("TAG", "onScroll");
-
-            return false;
+        public boolean onScroll(MotionEvent motionEventStar, MotionEvent motionEventEnd, float v, float v1) {
+            if (checkIsRoadView(motionEventEnd) || mCurrentScrollDirection == Direction.UP) {
+                mCurrentScrollDirection = Direction.UP;
+                MovieRoadView(motionEventEnd);
+            } else
+                mCurrentScrollDirection = Direction.NONE;
+            return true;
         }
 
         @Override
@@ -114,19 +125,30 @@ public class ZPHMapTileView extends ViewGroup {
         }
 
         @Override
-        public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-            Log.i("TAG", "onFling");
-            return false;
+        public boolean onFling(MotionEvent motionEventStar, MotionEvent motionEventEnd, float v, float v1) {
+            if (checkIsRoadView(motionEventEnd) || mCurrentScrollDirection == Direction.UP) {
+                mViewRootHeight = mViewRootHeight == 0 ? getHeight() : mViewRootHeight;
+                Log.i("TAG", "Y" + motionEventEnd.getY());
+                Log.i("TAG", "mViewRootHeight" + mViewRootHeight / 3);
+                if (motionEventEnd.getY() <= mViewRootHeight / 3) {
+                    moveToTop(motionEventEnd);
+                } else {
+                    recoverView(motionEventEnd);
+                }
+            }
+            mDis = 0;
+            mCurrentScrollDirection = Direction.NONE;
+            return true;
         }
     };
+
+
     @Override
     protected void onLayout(boolean b, int left, int top, int right, int buttom) {
         int cCount = getChildCount();
         int cWidth = 0;
         int cHeight = 0;
 //        MarginLayoutParams cParams = null;
-
-
         for (int i = 0; i < cCount; i++) {
             View childView = getChildAt(i);
             cWidth = childView.getMeasuredWidth();
@@ -138,25 +160,25 @@ public class ZPHMapTileView extends ViewGroup {
             switch (i) {
                 case 0:
                     cl = 0;
-                    ct = getHeight()-cHeight;
+                    ct = getHeight() - cHeight;
                     break;
                 case 1:
                     cl = (getWidth() - cWidth) / 2;
-                    ct = getHeight() - cHeight - 100;
+                    ct = getHeight() - cHeight - 120;
 
                     break;
                 case 2:
                     cl = getWidth() - cWidth - 10;
-                    ct = getHeight() - cHeight - 100;
+                    ct = getHeight() - cHeight - 120;
                     break;
                 case 3:
-                    cl = getWidth();
+                    cl = 0;
                     ct = getHeight();
                     break;
 
             }
-            cr = cl + cWidth;
-            cb = cHeight + ct;
+            cr = getWidth();
+            cb = cHeight+ ct;
             childView.layout(cl, ct, cr, cb);
         }
     }
@@ -172,11 +194,14 @@ public class ZPHMapTileView extends ViewGroup {
         mLinearLayout1 = (LinearLayout) getChildAt(0);
         mLinearLayout2 = (LinearLayout) getChildAt(1);
         mLinearLayout3 = (LinearLayout) getChildAt(2);
-        mLinearLayout4 = (LinearLayout) getChildAt(3);
-        mLayoutList.add(0,mLinearLayout1);
-        mLayoutList.add(1,mLinearLayout2);
-        mLayoutList.add(2,mLinearLayout3);
-        mLayoutList.add(3,mLinearLayout4);
+        mLinearLayout4 = (RelativeLayout) getChildAt(3);
+        mLayoutList.add(0, mLinearLayout1);
+        mLayoutList.add(1, mLinearLayout2);
+        mLayoutList.add(2, mLinearLayout3);
+        mLinearLayout1.setVisibility(VISIBLE);
+        mLinearLayout2.setVisibility(VISIBLE);
+
+//        mLayoutList.add(3, mLinearLayout4);
     }
 
     @Override
@@ -188,164 +213,175 @@ public class ZPHMapTileView extends ViewGroup {
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-
-
-       /* int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
-        Log.i(TAG,"widthMeasureSpec:"+widthMeasureSpec);
-        Log.i(TAG,"heightMeasureSpec:"+heightMeasureSpec);
-        measureChildren(widthMode, heightMode);
-        int width = 0;
-        int height = 0;
-        int cCount = getChildCount();
-        int cWidth = 0;
-        int cHeight = 0;
-//        MarginLayoutParams cParams = null;
-        int lHeight = 0;
-        int rHeight = 0;
-        int tWidth = 0;
-        int bWidth = 0;
-        Log.i(TAG,"view的个数："+cCount);
-
-        for (int i = 0; i < cCount; i++) {
-            View childView = getChildAt(i);
-            cWidth = childView.getMeasuredWidth();
-            cHeight = childView.getMeasuredHeight();
-//            cParams = (MarginLayoutParams) childView.getLayoutParams();
-            tWidth += cWidth ;
-            lHeight += cHeight ;
-            Log.i(TAG,"第"+i+"个的宽高："+tWidth+"-"+cWidth+"-"+lHeight+"-"+cHeight);
-        }
-
-        width = Math.max(tWidth, bWidth);
-        height = Math.max(lHeight, rHeight);
-        setMeasuredDimension((widthMode == MeasureSpec.EXACTLY) ? sizeWidth
-                : width, (heightMode == MeasureSpec.EXACTLY) ? sizeHeight
-                : height);*/
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-//        Log.i("TAG","AAAA");
-//        boolean val = mGestureDetector.onTouchEvent(ev);
-//        Log.i("TAG","AAAA="+val);
-//        return val;
-
-
-
-
-        if (checkIsRoadView(ev)) {
-            switch (ev.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-
-                    mStartX=mLinearLayout1.getX();
-                    mStartY=mLinearLayout1.getY();
-                    mDis=ev.getY()-mStartY;
-                    Log.i("TAG","Down");
-               return true;
-                case MotionEvent.ACTION_MOVE:
-
-                    mCurrentScrollDirection =Direction.UP;
-                    MovieRoadView(ev);
-                 break;
-                case MotionEvent.ACTION_UP:
-                    Log.i("TAG","Up");
-                    mDis=0;
-                    if(ev.getY()<=mViewRootHeight/2){
-
-                    }
-                    else{
-                        recoverView(ev);
-
-                    }
-
-                 break;
-            }
+        if (mCurrentScrollDirection == Direction.ERR) {
+            return false;
         }
-        else{
-            mCurrentScrollDirection=Direction.NONE;
-        }
-
-
-        return super.onTouchEvent(ev);
+        return mGestureDetector.onTouchEvent(ev);
     }
 
     private void recoverView(MotionEvent ev) {
         recoverLayout1(ev);
         recoverLayout2(ev);
+        recoverLayout4(ev);
+    }
+
+    private void recoverLayout4(MotionEvent ev) {
+        final int cl = 0;
+        final int ct = getHeight();
+        final int cr = getWidth();
+        final int cb = ct + getHeight();
+        int distance = (int) (getHeight() - mLinearLayout1.getMeasuredHeight() - ev.getY());
+        Log.i("TAG", "Dis" + distance);
+        TranslateAnimation animation = new TranslateAnimation(Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, distance + mDis);
+        animation.setDuration(2200);
+        animation.setInterpolator(new OvershootInterpolator());
+        mLinearLayout4.clearAnimation();
+        mLinearLayout4.setAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.i("TAG", "onAnimationStart");
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Log.i("TAG", "onAnimationEnd");
+                mLinearLayout4.layout(cl, ct, cr, cb);
+                mLinearLayout4.clearAnimation();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animation.start();
 
     }
 
     private void recoverLayout1(MotionEvent ev) {
-        int cl = 0, ct = 0, cr = 0, cb = 0;
-        cl = 0;
-        ct = getHeight() - mLinearLayout1.getMeasuredHeight();
-        cr = cl + mLinearLayout1.getMeasuredWidth();
-        cb = ct+mLinearLayout1.getMeasuredHeight();
-        int locationY=(int)(mDis-ev.getY());
-        int distance=(int)(ct-ev.getY());
-        Log.i("TAG","Dis"+distance);
-        TranslateAnimation animation = new TranslateAnimation(Animation.ABSOLUTE,0,
-                Animation.ABSOLUTE,0,
-                Animation.ABSOLUTE,locationY,
-                Animation.ABSOLUTE,locationY+100);
-        animation.setDuration(1200);
+        final int cl = 0;
+        final int ct = getHeight() - mLinearLayout1.getMeasuredHeight();
+        final int cr = cl + mLinearLayout1.getMeasuredWidth();
+        final int cb = ct + mLinearLayout1.getMeasuredHeight();
+        final int locationY = (int) (ev.getY() - mDis);
+        int distance = (int) (ct - ev.getY() + mDis);
+        TranslateAnimation animation = new TranslateAnimation(Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, distance);
+        animation.setDuration(2200);
         animation.setInterpolator(new OvershootInterpolator());
+        mLinearLayout1.clearAnimation();
         mLinearLayout1.setAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.i("TAG", "onAnimationStart");
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Log.i("TAG", "onAnimationEnd");
+                mLinearLayout1.layout(cl, ct, cr, cb);
+                mLinearLayout1.clearAnimation();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         animation.start();
-        mLinearLayout1.layout(cl, ct, cr, cb);
+
     }
 
     private void recoverLayout2(MotionEvent ev) {
-        int cl = 0, ct = 0, cr = 0, cb = 0;
-        cl = (getWidth() - mLinearLayout2.getMeasuredWidth()) / 2;
-        ct = getHeight() - mLinearLayout2.getMeasuredHeight() - 100;
-        cr = cl + mLinearLayout2.getMeasuredWidth();
-        cb = ct+mLinearLayout2.getMeasuredHeight();
+        final int cl = (getWidth() - mLinearLayout2.getMeasuredWidth()) / 2;
+        final int ct = getHeight() - mLinearLayout2.getMeasuredHeight() - 120;
+        final int cr = cl + mLinearLayout2.getMeasuredWidth();
+        final int cb = ct + mLinearLayout2.getMeasuredHeight();
+        int distance = (int) (getHeight() - mLinearLayout1.getMeasuredHeight() - ev.getY());
 
-
-        TranslateAnimation animation = new TranslateAnimation(0,0,0,ct);
-        animation.setDuration(1200);
+        TranslateAnimation animation = new TranslateAnimation(0, 0, 0, distance + mDis);
+        animation.setDuration(2200);
         animation.setInterpolator(new OvershootInterpolator());
+        mLinearLayout2.clearAnimation();
         mLinearLayout2.setAnimation(animation);
+        final float alp = mLinearLayout2.getAlpha();
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mLinearLayout2.setAlpha(alp);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mLinearLayout2.setAlpha(1.0f);
+                mLinearLayout2.layout(cl, ct, cr, cb);
+                mLinearLayout2.clearAnimation();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         animation.start();
-        mLinearLayout2.layout(cl, ct, cr, cb);
     }
 
 
     private void MovieRoadView(MotionEvent ev) {
-        if(checkIsLinearLayoutIsNull()){
+        if (checkIsLinearLayoutIsNull()) {
             initLinearLayoutView();
         }
-//        int getHeight() - mLinearLayout2.getHeight() - 10;
         // left top right bottom
         // left 不变，right不变
-        int left,top,right,bottom;
-        int left2,top2,right2,bottom2;
-        left=0;
-        left2=(getWidth() - mLinearLayout2.getMeasuredWidth()) / 2;
-        right=left+mLinearLayout1.getMeasuredWidth();
-        right2=left2+mLinearLayout2.getMeasuredWidth();
-        top=(int)ev.getY()-(int)mDis;
-        top2=top-100;
-        bottom=top+mLinearLayout1.getMeasuredHeight();
-        bottom2=bottom-100;
-        mLinearLayout1.layout(left,top, right,bottom);
-        mLinearLayout2.layout(left2,top2, right2,bottom2);
+        int left, top, right, bottom;
+        int left2, top2, right2, bottom2;
+        int left4, top4, right4, bottom4;
+        int distance = (int) (getHeight() - mLinearLayout1.getMeasuredHeight() - ev.getY());
+        left = 0;
+        left2 = (getWidth() - mLinearLayout2.getMeasuredWidth()) / 2;
+        left4 = 0;
+
+        right = left + mLinearLayout1.getMeasuredWidth();
+        right2 = left2 + mLinearLayout2.getMeasuredWidth();
+        right4 = getWidth();
+
+        top = (int) ev.getY() - (int) mDis;
+        top2 = top - 120;
+        top4 = (int) ev.getY() + (int) (mLinearLayout1.getMeasuredHeight() - mDis);
+
+
+        bottom = top + mLinearLayout1.getMeasuredHeight();
+        bottom2 = bottom - 120;
+        bottom4 = bottom + mLinearLayout4.getMeasuredHeight();
+
+        mLinearLayout1.layout(left, top, right, bottom);
+        mLinearLayout2.layout(left2, top2, right2, bottom2);
+        mLinearLayout4.layout(left4, top4, right4, bottom4);
+        float precent = (float) (distance) / (getHeight() * 2 / 3 - mLinearLayout1.getMeasuredHeight());
+        mLinearLayout2.setAlpha(1 - precent);
 
     }
 
     private boolean checkIsLinearLayoutIsNull() {
-        if(null==mLinearLayout1||null==mLinearLayout2||null==mLinearLayout3||null==mLinearLayout4){
+        if (null == mLinearLayout1 || null == mLinearLayout2 || null == mLinearLayout3 || null == mLinearLayout4) {
             return true;
         }
         return false;
     }
 
     public boolean checkIsRoadView(MotionEvent ev) {
-        if (null == mLinearLayout1 ||null==mLinearLayout2) {
+        if (null == mLinearLayout1 || null == mLinearLayout2) {
             mLinearLayout1 = (LinearLayout) getChildAt(0);
             mLinearLayout2 = (LinearLayout) getChildAt(1);
         }
@@ -359,5 +395,49 @@ public class ZPHMapTileView extends ViewGroup {
         }
         return false;
     }
+
+
+    private void moveToTop(MotionEvent ev) {
+        final int cl = 0;
+        final int ct = 0;
+        final int cr = getWidth();
+        final int cb = ct + getHeight();
+        int distance = (int) (-mLinearLayout1.getMeasuredHeight() - ev.getY());
+        Log.i("TAG", "Dis" + distance);
+        TranslateAnimation animation = new TranslateAnimation(Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, 0,
+                Animation.ABSOLUTE, distance + mDis);
+        animation.setDuration(2200);
+        animation.setInterpolator(new OvershootInterpolator());
+        mLinearLayout4.clearAnimation();
+        mLinearLayout4.setAnimation(animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                Log.i("TAG", "onAnimationStart");
+                mLinearLayout1.setAlpha(1.0f);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Log.i("TAG", "onAnimationEnd");
+                mLinearLayout1.setAlpha(0.0f);
+                mLinearLayout1.setVisibility(INVISIBLE);
+                mLinearLayout2.setVisibility(INVISIBLE);
+                mCurrentScrollDirection = Direction.ERR;
+                mLinearLayout4.layout(cl, ct, cr, cb);
+                mLinearLayout4.clearAnimation();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animation.start();
+
+    }
+
 
 }
