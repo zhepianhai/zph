@@ -3,7 +3,9 @@
 
     <string name="act_home_bar">找找看</string>
     <string name="search_hind">搜索</string>
+    <string name="logo_ip">© 2017 找找看</string>
     <string name="road">路线</string>
     <string name="promiss_location_error">没有权限,请手动开启定位权限</string>
     <string name="location_error_open">获取位置权限失败，请手动开启</string>
+    <string name="nearby">探索附近</string>
 </resources>

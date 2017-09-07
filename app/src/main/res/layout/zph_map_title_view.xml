@@ -6,10 +6,19 @@
     <LinearLayout
         android:id="@+id/zph_linerlayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View android:layout_width="match_parent"
-            android:background="@color/colorhomelan"
-            android:layout_height="@dimen/dp_40"/>
+        android:orientation="horizontal"
+        android:background="@color/colorhomelan"
+        android:layout_height="@dimen/dp_48">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/nearby"
+            android:textColor="@color/colorbasse"
+            android:textSize="16sp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="center"
+            android:layout_height="match_parent" />
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -17,39 +26,41 @@
         android:id="@+id/zph_linerlayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <LinearLayout
 
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:background="@drawable/miaobian_lanse"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_40"
             android:layout_alignBottom="@+id/root_floatingActionButton"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@drawable/miaobian_lanse"
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="@dimen/dp_24"
+                android:layout_height="@dimen/dp_24"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/dp_10"
-                android:background="@mipmap/icoon_lubiao"
-                android:layout_height="@dimen/dp_24" />
+                android:background="@mipmap/icoon_lubiao" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:text="@string/road"
-                android:textSize="16sp"
-                android:textColor="@color/colorbasse"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:layout_marginRight="@dimen/dp_10"
-                android:layout_height="match_parent" />
+                android:gravity="center"
+                android:text="@string/road"
+                android:textColor="@color/colorbasse"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/zph_linerlayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="0dp"
+        android:layout_height="0dp">
         <android.support.design.widget.FloatingActionButton
 
             android:layout_alignParentBottom="true"
@@ -65,8 +76,10 @@
     <RelativeLayout
         android:id="@+id/zph_linerlayout4"
         android:layout_width="match_parent"
-        android:background="@color/colorhome"
+        android:background="@color/colorhomelan"
         android:layout_height="match_parent">
+
+
        <ProgressBar
            android:layout_centerInParent="true"
            android:layout_width="wrap_content"

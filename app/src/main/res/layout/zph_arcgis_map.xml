@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.esri.android.map.MapView
+            android:id="@+id/mapview"
+            mapoptions.MapType="topo"
+            mapoptions.ZoomLevel="13"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
 
-    <android.support.design.widget.AppBarLayout
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/search_head_layout"/>
+    </FrameLayout>
+
+
+   <!-- <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,6 +81,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
+-->
 
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

@@ -25,12 +25,15 @@ import com.zph.R;
 import com.zph.base.ActRootMap;
 import com.zph.baselib.map.ZPHArcGisMapView;
 import com.zph.baselib.utils.ZPHUtilsMaterialDesign;
+import com.zph.view.ZPHMapTileView;
 
-public class ActMain extends ActRootMap  {
+public class ActMain extends ActRootMap implements ZPHMapTileView.MapTileScrollListener {
     private LocationDisplayManager locationDisplayManager;
     private MapOptions o;
     private ActionBar mActionBar;
     private static final int BAIDU_READ_PHONE_STATE =100;
+    private ZPHMapTileView layShow;
+    private boolean isViewInTop;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,9 @@ public class ActMain extends ActRootMap  {
         locationDisplayManager.setShowPings(true);
         locationDisplayManager.start();//开始定位
         locationDisplayManager.setLocationListener(new listener());
+        layShow = (ZPHMapTileView) LinearLayout.inflate(this, R.layout.zph_map_title_view, null);
+        mViewMain1.addView(layShow, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+        layShow.setMapTileScrollListener(this);
     }
 
 
@@ -96,13 +102,40 @@ public class ActMain extends ActRootMap  {
                 break;
         }
     }
+    /**
+     * buttom scroll listener
+     * */
+    @Override
+    public void scrollStart() {
 
+    }
+
+    @Override
+    public void scrollEnd() {
+
+    }
+
+    @Override
+    public void scrollTop(boolean flag) {
+        isViewInTop=flag;
+    }
+
+    @Override
+    public void scrollRecover(boolean flag) {
+        isViewInTop=flag;
+    }
+
+    @Override
+    public void roadOnClickListener(){
+        Snackbar snackbar = Snackbar.make(mViewMain, "check me", Snackbar.LENGTH_SHORT);
+        ZPHUtilsMaterialDesign.setSnackbarColor(snackbar, Color.BLACK, Color.WHITE);
+    }
 
     class listener implements LocationListener {
 
         @Override
         public void onLocationChanged(Location location) {
-            Log.i("TAG","onLocationChanged:"+location.toString());
+//            Log.i("TAG","onLocationChanged:"+location.toString());
             double lat=location.getLatitude();
             double log=location.getLongitude();
             o=new MapOptions(MapOptions.MapType.STREETS,lat,log,13);
@@ -128,18 +161,13 @@ public class ActMain extends ActRootMap  {
 
     @Override
     public void onBackPressed() {
-        Snackbar snackbar=Snackbar.make(mViewMain, "SnackbarClicked", Snackbar.LENGTH_SHORT);
-        ZPHUtilsMaterialDesign.setSnackbarColor(snackbar, Color.BLACK,Color.WHITE);
-        snackbar.show();
-//        Snackbar.
-//        super.onBackPressed();
-//        Snackbar.make(mViewMain, "SnackbarClicked", Snackbar.LENGTH_SHORT).show();
-//        Snackbar.make(mViewMain, "SnackbarClicked", Snackbar.LENGTH_SHORT).setAction("Action", new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(ActMain.this, "I'm a Toast", Toast.LENGTH_SHORT).show();
-//            }
-//        }).setActionTextColor(Color.RED).show();
+        if(isViewInTop){
+            layShow.RecoverAll();
 
+        }else {
+            Snackbar snackbar = Snackbar.make(mViewMain, "退出应用", Snackbar.LENGTH_SHORT);
+            ZPHUtilsMaterialDesign.setSnackbarColor(snackbar, Color.BLACK, Color.WHITE);
+            this.finish();
+        }
     }
 }

@@ -34,6 +34,7 @@ public class ZPHUtilsMaterialDesign {
         View view = snackbar.getView();
         view.setBackgroundColor(backgroundColor);
         ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(messageColor);
+        snackbar.show();
     }
 
     /**
