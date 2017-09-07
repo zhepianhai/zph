@@ -2,6 +2,7 @@ package com.zph.base;
 
 import android.os.Bundle;
 
+import com.esri.android.map.event.OnStatusChangedListener;
 import com.zph.baselib.map.ZPHArcGisMapView;
 
 /**
@@ -10,6 +11,7 @@ import com.zph.baselib.map.ZPHArcGisMapView;
 
 public class ActRootMap extends ActRoot implements ZPHArcGisMapView.ZPHArcGisMapViewPopClickListener{
     protected ZPHArcGisMapView mMapView;
+    protected OnStatusChangedListener onStatusChangedListener;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

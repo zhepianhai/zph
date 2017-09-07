@@ -11,12 +11,13 @@ import android.widget.RelativeLayout;
 
 import com.esri.android.map.MapOptions;
 import com.esri.android.map.MapView;
+
 /**
  * Created by zph on 2017/8/23.
  * encapsulation the ArcGisMapView
  */
 
-public class ZPHArcGisMapView  extends LinearLayout {
+public class ZPHArcGisMapView extends LinearLayout {
 
     private Context a;
     private MapView f;
@@ -25,13 +26,18 @@ public class ZPHArcGisMapView  extends LinearLayout {
     private FloatingActionButton fBtn;
 
     private ZPHArcGisMapViewPopClickListener z;
+
+
+
+
+
     public ZPHArcGisMapView(Context context) {
-        super(context,null);
+        super(context, null);
         this.a(context);
     }
 
     public ZPHArcGisMapView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs,0);
+        super(context, attrs, 0);
         this.a(context);
     }
 
@@ -42,10 +48,10 @@ public class ZPHArcGisMapView  extends LinearLayout {
     }
 
     private void a(Context context) {
-        this.a=context;
+        this.a = context;
         LinearLayout var2;
-        (var2 = (LinearLayout)LinearLayout.inflate(this.a, this.a.getResources().
-                getIdentifier("zph_arcgis_map","layout", this.a.getPackageName()),null)).
+        (var2 = (LinearLayout) LinearLayout.inflate(this.a, this.a.getResources().
+                getIdentifier("zph_arcgis_map", "layout", this.a.getPackageName()), null)).
                 setLayoutParams(new LayoutParams(-1, -1));
         this.addView(var2);
         this.f = var2.findViewById(this.a.getResources().getIdentifier("mapview", "id", this.a.getPackageName()));
@@ -62,14 +68,34 @@ public class ZPHArcGisMapView  extends LinearLayout {
 //        }
     }
 
-    public void setZPHMapOptions(double t,double g,int l){
-        o=new  MapOptions(MapOptions.MapType.STREETS,t,g,l);
-        if(null==f){
+    public void setZPHMapOptions(double t, double g, int l) {
+        o = new MapOptions(MapOptions.MapType.STREETS, t, g, l);
+        if (null == f) {
             return;
         }
-        f=new MapView(this.a,o);
+        f = new MapView(this.a, o);
 
+        f.setMapOptions(ArcGisMapSetting.mStreetBaseMap);
     }
+
+    public void setZphMapType(int type) {
+        switch (type) {
+            case 1:
+                f.setMapOptions(ArcGisMapSetting.mTopoBaseMap);
+                break;
+            case 2:
+                f.setMapOptions(ArcGisMapSetting.mSatelliteBaseMap);
+                break;
+            case 3:
+                f.setMapOptions(ArcGisMapSetting.NATIONAL_GEOGRAPHIC);
+            default:
+                break;
+
+
+        }
+    }
+
+
     public MapView getMapView() {
         return this.f;
     }
