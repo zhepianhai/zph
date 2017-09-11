@@ -1,11 +1,13 @@
 package com.zph;
 
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.esri.android.map.MapOptions;
 import com.esri.android.map.MapView;
 import com.zph.base.ActRootMap;
+import com.zph.baselib.render.TestRender;
 import com.zph.view.ZPHMapTileView;
 
 public class MainActivity extends ActRootMap {
@@ -20,8 +22,12 @@ public class MainActivity extends ActRootMap {
 //        setContentView(R.layout.zph_map_title_view);
         setmActionBarType(NAVBTNRIGHT_TYPE_NOTITLE);
         iniview();
-        ZPHMapTileView layShow = (ZPHMapTileView) LinearLayout.inflate(this, R.layout.zph_map_title_view, null);
-        mViewMain.addView(layShow, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+//        ZPHMapTileView layShow = (ZPHMapTileView) LinearLayout.inflate(this, R.layout.zph_map_title_view, null);
+//        mViewMain.addView(layShow, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
+        GLSurfaceView glv=new GLSurfaceView(this);
+        glv.setEGLContextClientVersion(2); // Pick an OpenGL ES 2.0 context.
+        glv.setRenderer(new TestRender(this));
+        mViewMain.addView(glv);
 
 //        ZPHMapTileView zphMapTileView=new ZPHMapTileView(this);
 

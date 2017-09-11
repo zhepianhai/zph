@@ -95,21 +95,18 @@ public class ActMain extends ActRootMap implements ZPHMapTileView.MapTileScrollL
 //                "http://www.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"));
 //                "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer"));
 //                "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"));
-
+         locationDisplayManager = mMapView.getMapView().getLocationDisplayManager();
 
         onStatusChangedListener = new OnStatusChangedListener() {
             @Override
             public void onStatusChanged(Object source, STATUS status) {
-                if (source == mMapView && status == STATUS.INITIALIZED) {
-
-
+                if (source == mMapView.getMapView() && status == STATUS.INITIALIZED) {
                     locationDisplayManager.setShowLocation(true);
-
                     locationDisplayManager.setAutoPanMode(LocationDisplayManager.AutoPanMode.LOCATION);
                     locationDisplayManager.setShowPings(true);
                     locationDisplayManager.setAllowNetworkLocation(false);
                     locationDisplayManager.setAccuracyCircleOn(false);
-                    locationDisplayManager.setLocationListener(locationDisplayManager.getLocationListener());
+                    locationDisplayManager.setLocationListener(mLocationListener);
                     locationDisplayManager.start();
 
                 }
