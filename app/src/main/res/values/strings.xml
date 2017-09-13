@@ -8,4 +8,6 @@
     <string name="promiss_location_error">没有权限,请手动开启定位权限</string>
     <string name="location_error_open">获取位置权限失败，请手动开启</string>
     <string name="nearby">探索附近</string>
+    <string name="not_suppose_opengl">不支持OpenGL ES</string>
+    <string name="exit_app">再按一次退出应用</string>
 </resources>

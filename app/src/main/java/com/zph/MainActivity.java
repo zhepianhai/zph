@@ -1,49 +1,72 @@
 package com.zph;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.widget.LinearLayout;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
+import android.widget.Toast;
 
 import com.esri.android.map.MapOptions;
 import com.esri.android.map.MapView;
 import com.zph.base.ActRootMap;
-import com.zph.baselib.render.TestRender;
+import com.zph.baselib.gl.render.TestRender;
+import com.zph.baselib.gl.utils.BaseGLESSeting;
+import com.zph.baselib.utils.ZPHUtilsMaterialDesign;
 import com.zph.view.ZPHMapTileView;
 
-public class MainActivity extends ActRootMap {
-    MapView mapView;
-    MapOptions opt= new  MapOptions(MapOptions.MapType.STREETS,33.666354, -117.903557,13);
-    ZPHMapTileView slidingDrawer;
-
+public class MainActivity extends Activity {
+    private boolean rendererSet;
+    private GLSurfaceView glv;
+    private boolean isExist;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        setContentView(R.layout.zph_map_title_view);
-        setmActionBarType(NAVBTNRIGHT_TYPE_NOTITLE);
-        iniview();
-//        ZPHMapTileView layShow = (ZPHMapTileView) LinearLayout.inflate(this, R.layout.zph_map_title_view, null);
-//        mViewMain.addView(layShow, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT));
-        GLSurfaceView glv=new GLSurfaceView(this);
-        glv.setEGLContextClientVersion(2); // Pick an OpenGL ES 2.0 context.
-        glv.setRenderer(new TestRender(this));
-        mViewMain.addView(glv);
-
-//        ZPHMapTileView zphMapTileView=new ZPHMapTileView(this);
-
-//        mViewMain.addView(zphMapTileView);
-
-//        setContentView(R.layout.zph_arcgis_map);
-//        mapView = new MapView(this,opt);
-//
-//        mapView.addLayer(new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"));
+//        setmActionBarType(NAVBTNRIGHT_TYPE_NOTITLE);
+        glv = new GLSurfaceView(this);
+        if (BaseGLESSeting.CheckSupposeGLES(this)) {
+            this.rendererSet = true;
+//            glv.setEGLContextClientVersion(2); // Pick an OpenGL ES 2.0 context.
+            glv.setRenderer(new TestRender(this));
+            setContentView(glv);
+//            mViewMain.addView(glv);
+        } else {
+            Toast.makeText(this, R.string.not_suppose_opengl, Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void iniview() {
-
+    @Override
+    public void onBackPressed() {
+        if (!isExist) {
+//            Snackbar snackbar = Snackbar.make(mViewMain, R.string.exit_app, Snackbar.LENGTH_SHORT);
+//            ZPHUtilsMaterialDesign.setSnackbarColor(snackbar, Color.BLACK, Color.WHITE);
+//            isExist = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isExist = false;
+                }
+            }, 1800);
+        } else {
+            super.onBackPressed();
+        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (this.rendererSet) {
+            this.glv.onResume();
+        }
+    }
 
+    @Override
 
-
+    protected void onPause() {
+        super.onPause();
+        if (this.rendererSet) {
+            this.glv.onPause();
+        }
+    }
 }

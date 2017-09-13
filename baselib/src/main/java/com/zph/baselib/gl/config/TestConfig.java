@@ -1,4 +1,4 @@
-package com.zph.baselib.config;
+package com.zph.baselib.gl.config;
 
 import android.util.Log;
 
@@ -175,6 +175,8 @@ public class TestConfig {
         // Compile the shaders.
         int vertexShader = compileVertexShader(vertexShaderSource);
         int fragmentShader = compileFragmentShader(fragmentShaderSource);
+        Log.i(TAG,"vertexShader"+vertexShader);
+        Log.i(TAG,"fragmentShader"+fragmentShader);
 
         // Link them into a shader program.
         program = linkProgram(vertexShader, fragmentShader);

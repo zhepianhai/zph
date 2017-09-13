@@ -90,12 +90,15 @@ public class ActMain extends ActRootMap implements ZPHMapTileView.MapTileScrollL
         mMapView = new ZPHArcGisMapView(this);
         mViewMain.addView(mMapView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mMapView.setZphMapType(1);
-
-        mMapView.getMapView().addLayer(new ArcGISTiledMapServiceLayer(ArcGisMapSetting.ChinaOnlineStreetPurplishBlue));
+        serviceLayout=ArcGisMapSetting.getGisMapLayout();
+        mMapView.getMapView().addLayer(serviceLayout);
 //                "http://www.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"));
 //                "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer"));
 //                "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"));
          locationDisplayManager = mMapView.getMapView().getLocationDisplayManager();
+
+
+
 
         onStatusChangedListener = new OnStatusChangedListener() {
             @Override

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.esri.android.map.MapOptions;
 import com.esri.android.map.MapView;
+import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 
 /**
  * Created by zph on 2017/8/23.

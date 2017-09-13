@@ -1,4 +1,4 @@
-package com.zph.baselib.utils;
+package com.zph.baselib.gl.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
