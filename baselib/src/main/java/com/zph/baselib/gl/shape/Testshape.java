@@ -21,7 +21,7 @@ import javax.microedition.khronos.opengles.GL10;
 public class Testshape {
     private Context context;
     // 数组中每个顶点的坐标数
-    static final int COORDS_PER_VERTEX = 2;
+    static final int COORDS_PER_VERTEX = 5;
     // 每个顶点的坐标数     X ,  Y
     static float triangleCoords[] = {
             //两个三角形和三角形的颜色分量
@@ -92,7 +92,7 @@ public class Testshape {
     public void draw(GL10 gl) {
         //开启颜色渲染功能
 //        gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
-//        GLES20.glUseProgram(program);
+        GLES20.glUseProgram(program);
 //        GLES20.glUniform4f(uColorLocation, 0.0f, 0.0f, 1.0f, 1.0f);
 //        告诉OpenGL绘制三角扇形
         Log.i("TAG","draw1");
@@ -132,6 +132,4 @@ public class Testshape {
         // 设置buffer，从第一个坐标开始读
         vertexBuffer.position(0);
     }
-
-
 }

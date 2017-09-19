@@ -35,7 +35,7 @@ public class ActLogoIp extends Activity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(100);
                     mHandler.sendEmptyMessage(100);
 
                 } catch (InterruptedException e) {

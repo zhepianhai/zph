@@ -30,9 +30,8 @@ public class TestConfig {
 
     /**
      * 加载并编译顶点着色器，返回得到的opengl id
-     *
      * @param shaderCode
-     * @return
+     * @return id
      */
     public static int compileVertexShader(String shaderCode) {
         return compileShader(GL_VERTEX_SHADER, shaderCode);

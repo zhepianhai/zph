@@ -32,8 +32,8 @@
     <color name="toolbar">#efefef</color>
     <color name="toolbar_text">#8f000000</color>
     <color name="accent">#2789e4</color>
-    <color name="dark">#FF222222</color>
-    <color name="light">#FFEEEEEE</color>
+    <color name="dark">#ff9933</color>
+    <color name="light">#D26900</color>
     <!-- 蓝色-->
     <color name="colorhomelan">#0099cc</color>
     <!-- 白色-->

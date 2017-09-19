@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.esri.android.map.MapOptions;
 import com.esri.android.map.MapView;
 import com.zph.base.ActRootMap;
+import com.zph.baselib.gl.render.AirHockeyRender;
+import com.zph.baselib.gl.render.OpenGLRender;
 import com.zph.baselib.gl.render.TestRender;
 import com.zph.baselib.gl.utils.BaseGLESSeting;
 import com.zph.baselib.utils.ZPHUtilsMaterialDesign;
@@ -27,8 +29,8 @@ public class MainActivity extends Activity {
         glv = new GLSurfaceView(this);
         if (BaseGLESSeting.CheckSupposeGLES(this)) {
             this.rendererSet = true;
-//            glv.setEGLContextClientVersion(2); // Pick an OpenGL ES 2.0 context.
-            glv.setRenderer(new TestRender(this));
+            glv.setEGLContextClientVersion(2); // Pick an OpenGL ES 2.0 context.
+            glv.setRenderer(new AirHockeyRender(this));
             setContentView(glv);
 //            mViewMain.addView(glv);
         } else {
