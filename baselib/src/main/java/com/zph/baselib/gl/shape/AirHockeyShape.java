@@ -83,6 +83,7 @@ public class AirHockeyShape {
         //获取Uniform位置(Color)返回-1代表错误，0是有效值
 //        uColorLocation= GLES20.glGetUniformLocation(program, U_COLOR);
 //        获取颜色位置(Color)返回-1代表错误，0是有效值
+        //接受要注意a_Color接受的是varying类型
         aColorLocation=GLES20.glGetAttribLocation(program,A_COLOR);
         Log.i("TAG","aColorLocation"+aColorLocation);
         //获取属性的位置(Position)aPositionLocation返回-1代表错误，0是有效值
