@@ -5,6 +5,7 @@ import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 
 import com.zph.baselib.gl.shape.AirHockeyShape;
+import com.zph.baselib.gl.shape.AirHockeyShape1;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -15,7 +16,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class AirHockeyRender implements GLSurfaceView.Renderer {
     private Context context;
-    AirHockeyShape airHockeyShape;
+    AirHockeyShape1 airHockeyShape;
     public AirHockeyRender(Context context){
         this.context=context;
     }
@@ -32,7 +33,7 @@ public class AirHockeyRender implements GLSurfaceView.Renderer {
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
-        airHockeyShape=new AirHockeyShape(context);
+        airHockeyShape=new AirHockeyShape1(context);
 
 
     }
@@ -40,6 +41,8 @@ public class AirHockeyRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         gl.glViewport(0, 0, width, height);
+        //
+        airHockeyShape.addMatrix(gl,width,height);
         // Select the projection matrix
         gl.glMatrixMode(GL10.GL_PROJECTION);
         // Reset the projection matrix
