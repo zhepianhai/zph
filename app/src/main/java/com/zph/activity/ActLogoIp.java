@@ -19,7 +19,7 @@ public class ActLogoIp extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 100:
-                    Intent intent=new Intent(ActLogoIp.this,MainActivity.class);
+                    Intent intent=new Intent(ActLogoIp.this,ActRain.class);
                     startActivity(intent);
                     ActLogoIp.this.finish();
                     break;

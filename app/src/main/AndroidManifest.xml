@@ -25,8 +25,8 @@
             android:name=".activity.ActLogoIp"
             android:label="@string/act_home_bar"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppStartLoadTranslucent"
-            android:logo="@drawable/icoon_menu">
+            android:logo="@drawable/icoon_menu"
+            android:theme="@style/Theme.AppStartLoadTranslucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +35,8 @@
         </activity>
         <activity android:name=".base.ActRoot" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".activity.ActMain"/>
+        <activity android:name=".activity.ActMain" />
+        <activity android:name=".activity.ActRain"></activity>
     </application>
 
 </manifest>
