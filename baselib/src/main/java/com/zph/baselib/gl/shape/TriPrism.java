@@ -43,9 +43,9 @@ public class TriPrism extends Prism{
     private Context mContext;
     private float[] mLine = new float[9];
 
-    public float yAngle = -30;
-    public float xAngle = 0;
-    public float zAngle = 0;
+    public float yAngle = -30;//
+    public float xAngle = 0;//
+    public float zAngle = 0;//
     private String vertexShaderSource,fragmentShaderSource;
     private int program;
 
@@ -321,7 +321,7 @@ public class TriPrism extends Prism{
         mLineDataBuffer = BufferUtil.floatToBuffer(tempLineValue);
         mLineColorBuffer = BufferUtil.floatToBuffer(tempLineColor);
 
-//        initParame();
+
 
 
     }
@@ -330,7 +330,7 @@ public class TriPrism extends Prism{
      * */
     private void initParame() {
         vertexShaderSource = TextResourceReader
-                .readTextFileFromResource(mContext, R.raw.simple_vertex_shader);
+                .readTextFileFromResource(mContext, R.raw.simple_verteex_shaer1);
         fragmentShaderSource = TextResourceReader
                 .readTextFileFromResource(mContext, R.raw.simple_fragment_shader);
         program = TestConfig.buildProgram(vertexShaderSource, fragmentShaderSource);
@@ -367,24 +367,33 @@ public class TriPrism extends Prism{
 
         mLineCount = mLineCount + 1;
     }
+    public void onChange(GL10 gl ,float xrot,float yrot){
+        gl.glLoadIdentity();
+    }
 
-
-    @Override
-    public void draw(GL10 gl) {
+    public void onDraws(GL10 gl,float xrot,float yrot){
         if (mPrismBuffer == null || mColorBuffer == null) {
             return;
         }
-        gl.glLoadIdentity();
 
-        gl.glRotatef(-30, xAngle, yAngle, zAngle);
-//        MatrixState.rotate(xAngle, 1, 0, 0);
-//        MatrixState.rotate(yAngle, 0, 1, 0);
-//        MatrixState.rotate(zAngle, 0, 0, 1);
-//        MatrixState.setCamera(0, 0, 30, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-//        MatrixState.setInitStack();
+//        gl.glLoadIdentity();
+        Matrix.setIdentityM(modleMatrix,0);
+        Matrix.rotateM(modleMatrix,0,xrot/10,1f,0f,0f);
+        Matrix.rotateM(modleMatrix,0,yrot/10,0f,1f,0f);
+        float[] temp=new float[16];
+        Matrix.multiplyMM(temp,0,projectMatrix,0,modleMatrix,0);
+        System.arraycopy(temp,0,projectMatrix,0,temp.length);
+
+//        Matrix.translateM(modleMatrix,0,0f,0f,-2f);
+        Matrix.rotateM(modleMatrix,0,xrot/10,1f,0f,0f);
+        Matrix.rotateM(modleMatrix,0,yrot/10,0f,1f,0f);
 
 
-        // BASE
+
+
+//        gl.glRotatef(xrot/10, 1, 0, 0);
+//        gl.glRotatef(yrot/10, 0, 1, 0);
+
 
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mPrismBuffer);
         gl.glColorPointer(4, GL10.GL_FLOAT, 0, mColorBuffer);
@@ -454,6 +463,26 @@ public class TriPrism extends Prism{
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
 
         gl.glFinish();
+
+        initParame();
+
+    }
+
+    @Override
+    public void draw(GL10 gl) {
+
+
+//        gl.glRotatef(-30, xAngle, yAngle, zAngle);
+//        MatrixState.rotate(xAngle, 1, 0, 0);
+//        MatrixState.rotate(yAngle, 0, 1, 0);
+//        MatrixState.rotate(zAngle, 0, 0, 1);
+//        MatrixState.setCamera(0, 0, 30, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+//        MatrixState.setInitStack();
+
+
+        // BASE
+
+
 
 
     }

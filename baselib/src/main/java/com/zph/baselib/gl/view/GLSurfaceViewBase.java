@@ -9,6 +9,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.zph.baselib.gl.render.RainISORenderer;
+import com.zph.baselib.gl.utils.MatrixState;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGL11;
@@ -33,12 +34,6 @@ public abstract class GLSurfaceViewBase extends GLSurfaceView implements Surface
     int fps;
 
 
-    private RainISORenderer render;
-
-    public void setRenderer(RainISORenderer renderer) {
-        render = renderer;
-        super.setRenderer(render);
-    }
 
 
     public GLSurfaceViewBase(Context context) {
@@ -82,6 +77,13 @@ public abstract class GLSurfaceViewBase extends GLSurfaceView implements Surface
             this.width = width;
             this.height = height;
             this.resize = true;
+
+
+//            float ratio = (float) width / height;
+//            MatrixState.setProjectFrustum(-ratio, ratio, -1, 1, 20, 100);
+//            MatrixState.setCamera(0, 0, 30, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+//            MatrixState.setInitStack();
+
         }
     }
 
@@ -167,8 +169,10 @@ public abstract class GLSurfaceViewBase extends GLSurfaceView implements Surface
             resize(gl, w, h);
             resize = false;
         }
-        drawFrame(gl);
-        render.onDrawFrame(gl);
+        if(flags)
+            drawFrame(gl);
+
+//        render.onDrawFrame(gl);
     }
 
     protected void resize(GL10 gl, int w, int h) {
@@ -178,7 +182,9 @@ public abstract class GLSurfaceViewBase extends GLSurfaceView implements Surface
         GLU.gluPerspective(gl, 45.0f, ((float)w)/h, 1f, 100f);
     }
 
-    protected void init(GL10 gl) {}
-
+    protected void init(GL10 gl) {
+        flags=true;
+    }
+    public static boolean flags=false;
     protected abstract void drawFrame(GL10 gl);
 }

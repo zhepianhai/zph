@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.huitu.app.engine.HTMainNet;
 import com.huitu.app.util.HTUtilData;
@@ -45,8 +46,8 @@ public class ActRain extends AppCompatActivity {
     private void showData() {
         new Thread() {
             public void run() {
-                mRender.showData(mDataGrid, mDataMax, mDataCol, mDataRow);
-                openGLView.requestRender();
+                openGLView.showData(mDataGrid, mDataMax, mDataCol, mDataRow);
+//                openGLView.requestRender();
             }
         }.start();
     }
@@ -58,8 +59,12 @@ public class ActRain extends AppCompatActivity {
 //        setContentView(R.layout.activity_act_rain);
         initVar();
         initView();
-        setContentView(openGLView);
         loadData();
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
+        setContentView(openGLView);
+
     }
 
     private void initVar() {
@@ -105,15 +110,16 @@ public class ActRain extends AppCompatActivity {
     }
 
     private void initView() {
-//        openGLView= (OpenGLView) findViewById(R.id.openglview);
+//      openGLView= (OpenGLView) findViewById(R.id.openglview);
 //
         openGLView=new OpenGLView(this);
-        openGLView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
+       openGLView.setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         openGLView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
         openGLView.setZOrderOnTop(true);
+//        GLSurfaceView.Renderer
         mRender = new RainISORenderer(this);
         openGLView.setRenderer(mRender);
-        openGLView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+//        openGLView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
 
 
     }
